@@ -63,6 +63,7 @@ public class LoginServlet extends HttpServlet {
                 if (users.checkPass(req.getParameter("username"), req.getParameter("pass"))) {
                     session = req.getSession();
                     httpout.println("Session Created!");
+                    session.setAttribute("user", req.getParameter("username"));
                     httpout.println("Session ID: " + session.getId());
                     httpout.println("Session Created: " + session.getCreationTime());
                     httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
