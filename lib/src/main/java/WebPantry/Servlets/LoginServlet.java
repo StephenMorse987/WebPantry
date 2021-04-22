@@ -19,53 +19,46 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        PrintWriter httpout = resp.getWriter();
-        httpout.println("GET " + req.getRequestURL());
-        httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
+
         if (session != null) {
-            httpout.println("Session already exists!");
-            httpout.println("Username: " + session.getAttribute("user"));
-            httpout.println("Session ID: " + session.getId());
-            httpout.println("Session Created: " + session.getCreationTime());
-            httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
+            // User already logged in, Send to Menu
+            resp.sendRedirect("/Menu");
+        } else {
+            // User is not logged in, Create Login
+            resp.setContentType("text/html");
+            resp.setCharacterEncoding("utf-8");
+            PrintWriter httpout = resp.getWriter();
+            PageBuilder pb = new PageBuilder();
+            httpout.print(pb.makeLoginPage(false));
         }
-        else {
-            httpout.println("No Session Found!");
-            httpout.println("Sessions can only be created by logging in.");
-        }
-        httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
+        
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(false);
-        PrintWriter httpout = resp.getWriter();
+        boolean success = false;
 
-        httpout.println("POST " + req.getRequestURL());
-        httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
-        if (session != null) {
-            httpout.println("Session already exists!");
-            httpout.println("Username: " + session.getAttribute("user"));
-            httpout.println("Session ID: " + session.getId());
-            httpout.println("Session Created: " + session.getCreationTime());
-            httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
-        }
-        else {
+        if (session == null) {
+            // User not logged in, check username and password
             SingleDB db = SingleDB.getInstance();
             UserList users = new UserList(db.connection);
-            if (users.checkPass(req.getParameter("username"), req.getParameter("pass"))) {
-                session = req.getSession();
-                httpout.println("Session Created!");
-                session.setAttribute("user", req.getParameter("username"));
-                httpout.println("Username: " + session.getAttribute("user"));
-                httpout.println("Session ID: " + session.getId());
-                httpout.println("Session Created: " + session.getCreationTime());
-                httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
+            if (!users.checkPass(req.getParameter("username"), req.getParameter("pass"))) {
+                // Failed, ask user to log in again
+                resp.setContentType("text/html");
+                resp.setCharacterEncoding("utf-8");
+                PrintWriter httpout = resp.getWriter();
+                PageBuilder pb = new PageBuilder();
+                httpout.print(pb.makeLoginPage(true));
             } else {
-                httpout.println("The username or password does not match existing information.");
+                session = req.getSession();
+                session.setAttribute("user", req.getParameter("username"));
+                success = true;
             }
+        } else { success = true; }
+        if (success) {
+            resp.sendRedirect("/Menu");
         }
-        httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
     }
 
 }
