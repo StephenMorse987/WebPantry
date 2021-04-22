@@ -1,9 +1,7 @@
-package WebPantry;
+package WebPantry.Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.Enumeration;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/Activity")
-public class ActivityServlet extends HttpServlet {
+@WebServlet("/Logout")
+public class LogoutServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -23,9 +21,12 @@ public class ActivityServlet extends HttpServlet {
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if (session != null) {
             httpout.println("Session Found!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
+            session.invalidate();
+            httpout.println("SESSION INVALIDATED");
         } else {
             httpout.println("No Session Found!");
         }
@@ -40,14 +41,18 @@ public class ActivityServlet extends HttpServlet {
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if ( session != null) {
             httpout.println("Session Found!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
+            session.invalidate();
+            httpout.println("SESSION INVALIDATED");
         } else {
             httpout.println("No Session Found!");
         }
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
     }
-
     
+    
+
 }

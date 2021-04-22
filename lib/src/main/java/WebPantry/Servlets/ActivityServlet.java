@@ -1,4 +1,4 @@
-package WebPantry;
+package WebPantry.Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-@WebServlet("/Logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/Activity")
+public class ActivityServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -21,11 +21,10 @@ public class LogoutServlet extends HttpServlet {
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if (session != null) {
             httpout.println("Session Found!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
-            session.invalidate();
-            httpout.println("Session Invalidated!");
         } else {
             httpout.println("No Session Found!");
         }
@@ -40,17 +39,15 @@ public class LogoutServlet extends HttpServlet {
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if ( session != null) {
             httpout.println("Session Found!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
-            session.invalidate();
-            httpout.println("Session Invalidated!");
         } else {
             httpout.println("No Session Found!");
         }
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
     }
-    
-    
 
+    
 }

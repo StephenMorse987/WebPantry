@@ -16,6 +16,7 @@ dependencies {
     // implementation 'com.google.guava:guava:29.0-jre'
     implementation 'org.postgresql:postgresql:42.2.19.jre7'
     implementation 'javax.servlet:javax.servlet-api:4.0.0'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.12.3'
 }
 
 tasks.named('test') {

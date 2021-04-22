@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.LinkedList;
 
 public class UserDAO implements DAO<User> {
-    Connection connection;
+    private Connection connection;
 
-    UserDAO (Connection connection) {
+    public UserDAO (Connection connection) {
         this.connection = connection;
     }
 

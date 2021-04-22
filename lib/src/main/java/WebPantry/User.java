@@ -6,7 +6,7 @@ public class User {
     private String edomain;
     private String password;
 
-    User (String username, String email, String password) {
+    public User (String username, String email, String password) {
         this.username = username;
         String[] temp = email.split("@");
         this.email = temp[0];
@@ -14,27 +14,27 @@ public class User {
         this.password = password;
     }
 
-    String getusername () {
+    public String getusername () {
         return this.username;
     }
 
-    String getemail () {
+    public String getemail () {
         return this.email + "@" + this.edomain;
     }
 
-    String getemailname () {
+    public String getemailname () {
         return this.email;
     }
 
-    String getemaildomain () {
+    public String getemaildomain () {
         return this.edomain;
     }
 
-    String getPassword () {
+    public String getPassword () {
         return this.password;
     }
 
-    boolean checkpassword (String other) {
+    public boolean checkpassword (String other) {
         return this.password.equals(other);
     }
 }

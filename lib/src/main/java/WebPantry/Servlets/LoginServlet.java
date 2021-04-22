@@ -1,10 +1,7 @@
-package WebPantry;
+package WebPantry.Servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,6 +9,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import WebPantry.SingleDB;
+import WebPantry.UserList;
 
 @WebServlet("/Login")
 public class LoginServlet extends HttpServlet {
@@ -24,6 +24,7 @@ public class LoginServlet extends HttpServlet {
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if (session != null) {
             httpout.println("Session already exists!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
@@ -40,40 +41,28 @@ public class LoginServlet extends HttpServlet {
         HttpSession session = req.getSession(false);
         PrintWriter httpout = resp.getWriter();
 
-        try {
-            Class.forName("org.postgresql.Driver");
-        } catch (ClassNotFoundException e1) {
-            httpout.println("PostgreSQL DataSource unable to load PostgreSQL JDBC Driver");
-            e1.printStackTrace(httpout);
-        }
-
         httpout.println("POST " + req.getRequestURL());
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
         if (session != null) {
             httpout.println("Session already exists!");
+            httpout.println("Username: " + session.getAttribute("user"));
             httpout.println("Session ID: " + session.getId());
             httpout.println("Session Created: " + session.getCreationTime());
             httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
         }
         else {
-            try {
-                Connection connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres", "postgres", "p4ssw0rd");
-                httpout.println("Connection Created.");
-                UserDAO users = new UserDAO(connection);
-                if (users.checkPass(req.getParameter("username"), req.getParameter("pass"))) {
-                    session = req.getSession();
-                    httpout.println("Session Created!");
-                    session.setAttribute("user", req.getParameter("username"));
-                    httpout.println("Session ID: " + session.getId());
-                    httpout.println("Session Created: " + session.getCreationTime());
-                    httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
-                } else {
-                    httpout.println("The username or password does not match existing information.");
-                }
-            } catch (SQLException e) {
-                httpout.println("SQL Exception Occurred.");
-                httpout.println(e.getMessage());
-                e.printStackTrace(httpout);
+            SingleDB db = SingleDB.getInstance();
+            UserList users = new UserList(db.connection);
+            if (users.checkPass(req.getParameter("username"), req.getParameter("pass"))) {
+                session = req.getSession();
+                httpout.println("Session Created!");
+                session.setAttribute("user", req.getParameter("username"));
+                httpout.println("Username: " + session.getAttribute("user"));
+                httpout.println("Session ID: " + session.getId());
+                httpout.println("Session Created: " + session.getCreationTime());
+                httpout.println("Session Last Accessed: " + session.getLastAccessedTime());
+            } else {
+                httpout.println("The username or password does not match existing information.");
             }
         }
         httpout.println("RSID is Valid: " + req.isRequestedSessionIdValid());
