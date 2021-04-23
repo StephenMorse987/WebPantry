@@ -52,6 +52,7 @@ public class UserDAO implements DAO<User> {
             statement.setString(3, newUser.getemaildomain());
             statement.setString(4, newUser.getPassword());
             if (statement.executeUpdate() < 1) throw new SQLException("The \"Users\" table did not accept the row you attempted to insert.");
+            statement = connection.prepareStatement("CREATE TABLE " + newUser + "_Pantry (item_id SERIAL PRIMARY KEY, amount FLOAT4 NOT NULL, measure_index SMALLINT NOT NULL, item_name TEXT UNIQUE NOT NULL);");
         } catch (SQLException e) {
             System.out.println("SQL Exception occurred:");
             e.printStackTrace();

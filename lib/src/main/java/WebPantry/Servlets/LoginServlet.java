@@ -22,7 +22,7 @@ public class LoginServlet extends HttpServlet {
 
         if (session != null) {
             // User already logged in, Send to Menu
-            resp.sendRedirect("/Menu");
+            resp.sendRedirect("/lib/Menu");
         } else {
             // User is not logged in, Create Login
             resp.setContentType("text/html");
@@ -57,7 +57,7 @@ public class LoginServlet extends HttpServlet {
             }
         } else { success = true; }
         if (success) {
-            resp.sendRedirect("/Menu");
+            resp.sendRedirect("/lib/Menu");
         }
     }
 
