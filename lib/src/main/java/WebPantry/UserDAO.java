@@ -43,6 +43,21 @@ public class UserDAO implements DAO<User> {
         return returnList;
     }
 
+    public List<String> getAllUsernames () {
+        List<String> returnList = new LinkedList<String>();
+        try {
+            PreparedStatement statement = connection.prepareStatement("SELECT username FROM Users;");
+            ResultSet result = statement.executeQuery();
+            while (result.next()) {
+                returnList.add(result.getString("username"));
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return returnList;
+    }
+
     @Override
     public void insert(User newUser) {
         try {

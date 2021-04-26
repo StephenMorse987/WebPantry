@@ -10,6 +10,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import WebPantry.SingleDB;
+import WebPantry.User;
+import WebPantry.UserDAO;
+
 @WebServlet("/NewUser")
 public class NewUserServlet extends HttpServlet {
 
@@ -26,7 +30,7 @@ public class NewUserServlet extends HttpServlet {
             resp.setCharacterEncoding("utf-8");
             PrintWriter httpout = resp.getWriter();
             PageBuilder pb = new PageBuilder();
-            httpout.print(pb.makeNewUserPage(""));
+            httpout.print(pb.makeNewUserPage());
         }
     }
 
@@ -36,6 +40,32 @@ public class NewUserServlet extends HttpServlet {
 
         if (session == null) {
             // User not logged in, process input data
+            boolean valid = true;
+            String username = "";
+            String email = "";
+            String password = "";
+            try {
+                username = req.getParameter("username");
+                if (username.length() < 1) throw new Exception("The username is empty.");
+                email = req.getParameter("email");
+                if (!email.matches("^.+@.+\\..+$")) throw new Exception("The Email is not in an expected format");
+                password = req.getParameter("pass");
+                if (password.length() < 1) throw new Exception("The password is empty.");
+            } catch (Exception e) {
+                // Reject ALL invalid inputs
+                valid = false;
+            }
+
+            if (valid) {
+                UserDAO users = new UserDAO(SingleDB.getInstance().connection);
+                users.insert(new User(username, email, password));
+                session = req.getSession();
+                session.setAttribute("user", username);
+            }
+
+            resp.sendRedirect("/lib/Menu");
+        } else {
+            resp.sendRedirect("/lib/Menu");
         }
     }
     

@@ -16,21 +16,52 @@
     </head>
     <body>
         <div class="container-fluid">
-			<form action="NewUser" method="POST">
-				<h3>Please fill the following fields</h3>
-				<div class="form-group">
-					<label for="username">Username:</label>
-					<input type="text" class="form-control" placeholder="Enter Username" name="username" required />
-				</div>
-				<div class="form-group">
-					<label for="email">Email:</label>
-					<input type="email" class="form-control" placeholder="Enter Email Address" name="email">
-				</div>
-				<div class="form-group">
-					<label for="pass">Password:</label>
-					<input type="password" class="form-control" placeholder="Enter Password" name="pass">
-				</div>
-				<button type="submit" class="btn btn-primary">Submit</button>
+			<form>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Amount</th>
+							<th>Measure</th>
+							<th>Name</th>
+						</tr>
+					</thead>
+					<tbody>
+						<td><input type="number" required/></td>
+						<td>
+							<select required>
+								<option value="1">ct</option>
+								<option value="2">dl</option>
+								<option value="3">L</option>
+								<option value="4">cc</option>
+								<option value="5">mL</option>
+								<option value="6">c</option>
+								<option value="7">cup</option>
+								<option value="8">dash</option>
+								<option value="9">fl oz</option>
+								<option value="10">gal</option>
+								<option value="11">pinch</option>
+								<option value="12">fl pt</option>
+								<option value="13">p</option>
+								<option value="14">pt</option>
+								<option value="15">fl qt</option>
+								<option value="16">q</option>
+								<option value="17">qt</option>
+								<option value="18">T</option>
+								<option value="19">tbl</option>
+								<option value="20">tbs</option>
+								<option value="21">tbsp</option>
+								<option value="22">t</option>
+								<option value="23">tsp</option>
+								<option value="24">g</option>
+								<option value="25">kg</option>
+								<option value="26">mg</option>
+								<option value="27">oz</option>
+								<option value="28">lb</option>
+							</select>
+						</td>
+						<td><input type="text" required /></td>
+					</tbody>
+				</table>
 			</form>
 		</div>
     </body>
