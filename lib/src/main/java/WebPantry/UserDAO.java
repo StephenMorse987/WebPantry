@@ -52,7 +52,6 @@ public class UserDAO implements DAO<User> {
                 returnList.add(result.getString("username"));
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         return returnList;
