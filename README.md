@@ -4,11 +4,11 @@
 Users can:
 - [x] Log in to the WebPantry System
   - [x] Log in with a username / password unique to each user.
-    - [ ] Create a new user with unique login data.
+    - [x] Create a new user with unique login data.
 - [x] Access a pantry unique to them
-  - [ ] Be informed that the pantry is empty
-  - [ ] Insert items into the pantry
-  - [ ] Remove items from the pantry
+  - [x] Be informed that the pantry is empty
+  - [x] Insert items into the pantry
+  - [x] Remove items from the pantry
   - [ ] Compare items from a given recipe and create a shopping list from missing items
 
 ## Usage
