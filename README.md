@@ -1,17 +1,29 @@
 # Web Pantry
 
-## Features
-Users can:
-- [x] Log in to the WebPantry System
-  - [x] Log in with a username / password unique to each user.
-    - [x] Create a new user with unique login data.
-- [x] Access a pantry unique to them
-  - [x] Be informed that the pantry is empty
-  - [x] Insert items into the pantry
-  - [x] Remove items from the pantry
-  - [ ] Compare items from a given recipe and create a shopping list from missing items
+## Project Description
 
-## Usage
+This is a web app that keeps track of a user's list of food items.
+
+## Technologies Used
+
+* Java Servlets
+* Java HTTPSessions
+* Apache Tomcat 9
+* Bootstrap 4
+* _React JS and Spring __not allowed__ for this Project_
+
+## Features
+
+Completed Features
+* User Login with Unique Pantry Table
+* Add / Remove Items in the Pantry
+
+To-do list:
+* Compare to an existing Recipe to the user pantry and determine what items need to be purchased
+* Add multiple items from a single page
+
+## Getting Started & Usage
+
 1. Create a **docker** image using the **dockerfile** in `lib\src\main\resources`
    - run a container with that image
 1. Compile the library using: `gradle build`
@@ -20,7 +32,5 @@ Users can:
    - `localhost:8080/lib/`
 
 ## License
-MIT
 
-## Author
-Stephen Morse
+This project uses the following license: [MIT](https://github.com/StephenMorse987/WebPantry/blob/Restructure/LICENSE.md).
