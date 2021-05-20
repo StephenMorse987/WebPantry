@@ -24,10 +24,16 @@ To-do list:
 
 ## Getting Started & Usage
 
+### You will need:
+- **JRE**
+- **Gradle**
+- **Docker**
+- **Apache Tomcat**
+
 1. Create a **docker** image using the **dockerfile** in `lib\src\main\resources`
    - run a container with that image
 1. Compile the library using: `gradle build`
-   - run `lib\build\lib\lib.war` on a server (I used apache tomcat)
+   - run `lib\build\lib\lib.war` on server (I used apache tomcat)
 1. Access the server's localhost location. (I will use `localhost:8080`)
    - `localhost:8080/lib/`
 
